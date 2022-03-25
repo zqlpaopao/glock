@@ -31,6 +31,7 @@ type option struct {
 	expire          uint
 	redisTimeout    time.Duration
 	key             string
+	masterKey       string
 	RenewalOften    RenewalTypeFunc
 	redisClient     *redis.Client
 	lockFailFunc    LockCallbackFun
@@ -60,6 +61,7 @@ func clone() *option {
 		expire:          DefaultExpireTIme,
 		redisTimeout:    DefaultRedisTimeOut,
 		key:             randString.RandGenString(randString.RandSourceLetterAndNumber, 8),
+		masterKey:       Lock,
 		RenewalOften:    DefaultRenewalTime,
 		redisClient:     &redis.Client{},
 		lockSuccessFunc: nil,
@@ -73,6 +75,13 @@ func (o *option) WithOptions(f ...Option) *option {
 		v.apply(o)
 	}
 	return o
+}
+
+//WithMasterKey Set master Key .default Lock
+func WithMasterKey(key string) OpFunc {
+	return func(o *option) {
+		o.masterKey = key
+	}
 }
 
 //WithSeizeTag Set Seize tag
