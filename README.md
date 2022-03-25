@@ -9,3 +9,6 @@
 6. 释放锁失败重试，默认三次
 7. 支持查看当前竞争者
 8. 支持短锁
+
+# 设计思路
+![glock](https://user-images.githubusercontent.com/43371021/160043878-9616051d-1fac-4b9b-80f3-f371ec8cbf8b.png)
